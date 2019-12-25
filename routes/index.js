@@ -22,12 +22,11 @@ router
   })
   .post(async (req, res) => {
     try {
-      const { name, location, starts, data } = req.body;
+      const { name, location, starts} = req.body;
       const party = new Party({
         name,
         location,
         starts,
-        data
       });
       await party.save();
       res.redirect("/dashboard");
@@ -53,7 +52,7 @@ router
       req.session.user = user;
       res.redirect("/dashboard");
     } catch (error) {
-      isUnique = false
+      isUnique = false;
       res.redirect('/signup')
     }
   });
@@ -80,10 +79,11 @@ router
     }
   });
 
-router.get("/dashboard", (req, res) => {
+router.get("/dashboard", async(req, res) => {
   const { user } = req.session;
+  const party = await Party.find({});
   if (req.session.user) {
-    res.render("dashboard", { name: user.username });
+    res.render("dashboard", { name: user.username ,party});
   } else {
     res.redirect("/login");
   }
@@ -102,5 +102,10 @@ router.get("/logout", async (req, res, next) => {
     res.redirect("/login");
   }
 });
+router.get('/party/:id',async (req,res,next) => {
+  const party = await Party.findOne({_id: req.params.id});
+  console.log(party)
+  res.render("party", party)
+})
 
 module.exports = router;

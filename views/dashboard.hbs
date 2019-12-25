@@ -17,5 +17,14 @@
 </nav>
 
 <div class="container row">
+    <ol>
+        {{#each party}}
+            <ul>
+                <a href="/party/{{this.id}}">{{this.name}}</a>
+            </ul>
+            <span>{{this.location}} {{this.starts}}</span>
+        {{/each}}
+    </ol>
+
 
 </div>
