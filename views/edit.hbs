@@ -1,0 +1,26 @@
+<div class="page-header">
+    <h1>Edit</h1>
+</div>
+
+<div class="container row">
+    <div class="jumbotron col-sm-4 pull-center">
+        <form action="/new" method="post">
+            <div>
+                <label>Name:</label>
+                <input type="text" name="name" value="{{party.name}}"/>
+            </div>
+            <div>
+                <label>Location:</label>
+                <input type="text" name="location" value="{{party.location}}"/>
+            </div>
+            <div>
+                <label>Starts at:</label>
+                <input type="datetime-local" name="starts" value="{{party.starts}}"/>
+            </div>
+
+            <div>
+                <input class="btn btn-primary" type="submit" value="Save Potluck" />
+            </div>
+        </form>
+    </div>
+</div>

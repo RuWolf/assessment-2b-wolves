@@ -1,7 +1,11 @@
 <ul>
-    <li>{{this.name}}</li>
-    <li>{{this.location}}</li>
-    <li>{{this.starts}} </li>
+    <li>{{party.name}}</li>
+    <li>{{party.location}}</li>
+    <li>{{party.starts}} </li>
 </ul>
+{{#if isAuthor}}
+
+    <li><a href="/party/edit/{{party.id}}">Edit</a></li>
+{{/if}}
 
 

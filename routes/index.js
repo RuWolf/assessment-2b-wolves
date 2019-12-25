@@ -21,12 +21,14 @@ router
     res.render("newparty");
   })
   .post(async (req, res) => {
+    const { user } = req.session;
     try {
       const { name, location, starts} = req.body;
       const party = new Party({
         name,
         location,
         starts,
+        author: user.username
       });
       await party.save();
       res.redirect("/dashboard");
@@ -102,10 +104,19 @@ router.get("/logout", async (req, res, next) => {
     res.redirect("/login");
   }
 });
+router.get('/party/edit/:id', async (req,res) => {
+  const party = await Party.findOne({_id: req.params.id});
+  res.render('edit',{party})
+
+});
 router.get('/party/:id',async (req,res,next) => {
   const party = await Party.findOne({_id: req.params.id});
-  console.log(party)
-  res.render("party", party)
-})
+  const { user } = req.session;
+  let isAuthor = false;
+  if (party.author === user.username){
+    isAuthor = true;
+  }
+  res.render("party", {party,isAuthor})
+});
 
 module.exports = router;
