@@ -1,8 +1,8 @@
-<ul>
-    <li>{{party.name}}</li>
-    <li>{{party.location}}</li>
-    <li>{{party.starts}} </li>
-</ul>
+
+<div class="patis" style="margin-top: 50px">
+    <p><a href="/party/{{party.id}}">{{party.name}}</a></p>
+    <span>{{party.location}} {{party.starts}}</span>
+</div>
 {{#if isAuthor}}
 
     <li><a href="/party/edit/{{party.id}}">Edit</a></li>

@@ -4,3 +4,14 @@ label {
 .red {
   color: red;
 }
+li {
+  font-size: 20px
+}
+ul {
+  font-size: 20px;
+
+}
+.patis {
+  font-size: 20px;
+  margin-top: 50px;
+}
