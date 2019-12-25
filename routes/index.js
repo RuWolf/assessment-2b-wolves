@@ -107,6 +107,16 @@ router.get("/logout", async (req, res, next) => {
 router.get('/party/edit/:id', async (req,res) => {
   const party = await Party.findOne({_id: req.params.id});
   res.render('edit',{party})
+});
+router.get('/party/delete/:id', async (req,res,next) => {
+  const { user } = req.session;
+  try{
+    await Party.deleteOne({_id: req.params.id});
+    const party = await Party.find({});
+    res.render("dashboard", { name: user.username,party });
+  }catch (e) {
+    next(e);
+  }
 
 });
 router.get('/party/:id',async (req,res,next) => {
