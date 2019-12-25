@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const { sessionChecker } = require("../middleware/auth");
 const User = require("../models/users");
+const Party = require("../models/partys");
 
 
 const saltRounds = 10;
@@ -13,6 +14,27 @@ let isUnique = true;
 router.get("/", sessionChecker, (req, res) => {
   res.redirect("/login");
 });
+
+router
+  .route("/new")
+  .get((req, res) => {
+    res.render("newparty");
+  })
+  .post(async (req, res) => {
+    try {
+      const { name, location, starts, data } = req.body;
+      const party = new Party({
+        name,
+        location,
+        starts,
+        data
+      });
+      await party.save();
+      res.redirect("/dashboard");
+    } catch (error) {
+      console.log(error)
+    }
+  });
 
 router
   .route("/signup")
@@ -35,6 +57,8 @@ router
       res.redirect('/signup')
     }
   });
+
+
 
 router
   .route("/login")

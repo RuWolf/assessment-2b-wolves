@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "npx nodemon ./bin/www",
+    "start": "npx nodemon --ignore './sessions' ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
