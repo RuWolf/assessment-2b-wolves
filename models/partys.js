@@ -4,7 +4,8 @@ const partySchema = new mongoose.Schema({
   name: String,
   location: String,
   starts: Date,
-  author: String
+  author: String,
+  guest: [String]
 
 });
 

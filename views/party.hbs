@@ -3,10 +3,24 @@
     <p><a href="/party/{{party.id}}">{{party.name}}</a></p>
     <span>{{party.location}} {{party.starts}}</span>
 </div>
+
+<div class="container row">
+    <p></p>
+    <p>Guest</p>
+    {{#each party.guest}}
+        <div class="patis">
+            <span>{{this}}</span>
+        </div>
+    {{/each}}
+    <p></p>
+</div>
+
 {{#if isAuthor}}
 
     <li><a href="/party/edit/{{party.id}}">Edit</a></li>
     <li><a href="/party/delete/{{party.id}}">Delete</a></li>
+    {{else}}
+    <li><a href="/party/come/{{party.id}}">Come</a></li>
 {{/if}}
 
 

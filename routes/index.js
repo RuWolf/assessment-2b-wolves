@@ -28,7 +28,8 @@ router
         name,
         location,
         starts,
-        author: user.username
+        author: user.username,
+        guest: user.username
       });
       await party.save();
       res.redirect("/dashboard");
@@ -104,6 +105,8 @@ router.get("/logout", async (req, res, next) => {
     res.redirect("/login");
   }
 });
+
+//переписать на CRUD
 router.get('/party/edit/:id', async (req,res) => {
   const party = await Party.findOne({_id: req.params.id});
   res.render('edit',{party})
@@ -118,6 +121,18 @@ router.get('/party/delete/:id', async (req,res,next) => {
     next(e);
   }
 
+});
+router.get('/party/come/:id', async (req,res) => {
+  const { user } = req.session;
+  //не пушит в массив!
+  //await Party.findOne({_id: req.params.id}, {$addToSet: {guest: user.username}});
+  const party = await Party.findOne({_id: req.params.id});
+
+  let isAuthor = false;
+  if (party.author === user.username){
+    isAuthor = true;
+  }
+  res.render("party", {party,isAuthor})
 });
 router.get('/party/:id',async (req,res,next) => {
   const party = await Party.findOne({_id: req.params.id});
